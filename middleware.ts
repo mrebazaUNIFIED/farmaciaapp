@@ -1,11 +1,30 @@
 import { createServerClient } from '@supabase/ssr'
-import { NextResponse, NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export async function middleware(req: NextRequest) {
+export async function middleware(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({
+    request,
+  })
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    { cookies: req.cookies }
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
   )
 
   const {
@@ -14,12 +33,12 @@ export async function middleware(req: NextRequest) {
 
   const PUBLIC_PATHS = ['/signin', '/signup']
 
-  if (!user && !PUBLIC_PATHS.includes(req.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL('/signin', req.url))
+  if (!user && !PUBLIC_PATHS.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL('/signin', request.url))
   }
 
-  if (user && PUBLIC_PATHS.includes(req.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL('/', req.url))
+  if (user && PUBLIC_PATHS.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   return NextResponse.next()
