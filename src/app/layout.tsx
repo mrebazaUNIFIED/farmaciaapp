@@ -3,7 +3,6 @@ import './globals.css';
 
 import { SidebarProvider } from '@/context/SidebarContext';
 import { ThemeProvider } from '@/context/ThemeContext';
-import { AuthProvider } from '@/context/AuthContext';
 import { QueryProvider } from '@/components/providers/query-provider';
 import { Toaster } from 'sonner';
 
@@ -21,7 +20,6 @@ export default function RootLayout({
 			<body className={`${outfit.className} dark:bg-gray-900`}>
 				<QueryProvider>
 					<ThemeProvider>
-					<AuthProvider>
 						<SidebarProvider>{children}
 							<Toaster
 					position="top-right" 
@@ -30,7 +28,6 @@ export default function RootLayout({
 					duration={4000} 
 				/>
 					</SidebarProvider>
-					</AuthProvider>
 
 				</ThemeProvider>
 				</QueryProvider>

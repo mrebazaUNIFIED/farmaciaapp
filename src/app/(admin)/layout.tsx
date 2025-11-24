@@ -1,7 +1,7 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
 import { useSidebar } from "@/context/SidebarContext";
+import { useAuth } from "@/hooks/useAuth";
 import AppHeader from "@/layout/AppHeader";
 import AppSidebar from "@/layout/AppSidebar";
 import Backdrop from "@/layout/Backdrop";
@@ -21,7 +21,7 @@ export default function AdminLayout({
     ? "lg:ml-[290px]"
     : "lg:ml-[90px]";
 
-  // Solo mostrar loading spinner mientras carga
+  // Solo mostrar spinner mientras carga inicialmente
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -33,7 +33,7 @@ export default function AdminLayout({
     );
   }
 
-  // El middleware ya protege las rutas, así que aquí solo renderizamos
+  // El middleware ya protege las rutas
   return (
     <div className="min-h-screen xl:flex">
       <AppSidebar />
