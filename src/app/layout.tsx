@@ -24,10 +24,10 @@ export default function RootLayout({
 					<AuthProvider>
 						<SidebarProvider>{children}
 							<Toaster
-					position="top-right" // Posición (top-right, bottom-right, etc.)
-					richColors // Colores más vibrantes (opcional)
-					closeButton // Botón de cerrar visible (opcional)
-					duration={4000} // Duración en ms (opcional)
+					position="top-right" 
+					richColors 
+					closeButton
+					duration={4000} 
 				/>
 					</SidebarProvider>
 					</AuthProvider>

@@ -3,15 +3,17 @@
 import { useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
-    // Obtener usuario actual
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user)
+    // Obtener sesión inicial
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
       setLoading(false)
     })
 
@@ -31,6 +33,11 @@ export function useAuth() {
       email,
       password,
     })
+    
+    if (!error) {
+      router.refresh() // Refresca el middleware
+    }
+    
     return { data, error }
   }
 
@@ -44,6 +51,12 @@ export function useAuth() {
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
+    
+    if (!error) {
+      router.push('/signin')
+      router.refresh()
+    }
+    
     return { error }
   }
 

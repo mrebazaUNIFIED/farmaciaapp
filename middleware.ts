@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({
             request,
           })
@@ -27,23 +27,40 @@ export async function middleware(request: NextRequest) {
     }
   )
 
+  // IMPORTANTE: Refrescar la sesión
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
   const PUBLIC_PATHS = ['/signin', '/signup']
+  const isPublicPath = PUBLIC_PATHS.includes(request.nextUrl.pathname)
 
-  if (!user && !PUBLIC_PATHS.includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL('/signin', request.url))
+  // Redirigir a signin si no está autenticado y no está en ruta pública
+  if (!user && !isPublicPath) {
+    const url = new URL('/signin', request.url)
+    return NextResponse.redirect(url)
   }
 
-  if (user && PUBLIC_PATHS.includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL('/', request.url))
+  // Redirigir a home si está autenticado e intenta acceder a signin/signup
+  if (user && isPublicPath) {
+    const url = new URL('/', request.url)
+    return NextResponse.redirect(url)
   }
 
-  return NextResponse.next()
+  // CRÍTICO: Devolver supabaseResponse en lugar de NextResponse.next()
+  return supabaseResponse
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - api routes
+     * - public assets
+     */
+    '/((?!_next/static|_next/image|favicon.ico|api|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 }

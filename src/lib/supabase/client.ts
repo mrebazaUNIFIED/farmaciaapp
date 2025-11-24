@@ -7,5 +7,5 @@ export function createClient() {
   )
 }
 
-// Cliente singleton para usar en componentes cliente
+// Para uso directo en componentes cliente
 export const supabase = createClient()

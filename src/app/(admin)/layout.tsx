@@ -5,8 +5,7 @@ import { useSidebar } from "@/context/SidebarContext";
 import AppHeader from "@/layout/AppHeader";
 import AppSidebar from "@/layout/AppSidebar";
 import Backdrop from "@/layout/Backdrop";
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
 
 export default function AdminLayout({
   children,
@@ -14,8 +13,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
-  const { user, loading } = useAuth();
-  const router = useRouter();
+  const { loading } = useAuth();
 
   const mainContentMargin = isMobileOpen
     ? "ml-0"
@@ -23,25 +21,19 @@ export default function AdminLayout({
     ? "lg:ml-[290px]"
     : "lg:ml-[90px]";
 
-  // Redirección cuando loading termine
-  useEffect(() => {
-    if (!loading && !user) {
-      router.replace("/signin");
-    }
-  }, [loading, user, router]);
-
+  // Solo mostrar loading spinner mientras carga
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-500"></div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600 text-sm">Cargando...</p>
+        </div>
       </div>
     );
   }
 
-  if (!user) {
-    return null;
-  }
-
+  // El middleware ya protege las rutas, así que aquí solo renderizamos
   return (
     <div className="min-h-screen xl:flex">
       <AppSidebar />
