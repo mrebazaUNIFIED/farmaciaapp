@@ -34,9 +34,16 @@ export function useAuth() {
       password,
     })
     
-    if (!error) {
-      router.refresh() // Refresca el middleware
+    if (error) {
+      throw error // Lanzar el error para que el componente lo capture
     }
+    
+    // Esperar un momento para que las cookies se establezcan
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    // Redirigir después de login exitoso
+    router.push('/')
+    router.refresh()
     
     return { data, error }
   }
