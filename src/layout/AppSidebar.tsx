@@ -40,7 +40,6 @@ const navItems: NavItem[] = [
     icon: <MdInventory className="w-5 h-5" />,
     name: "Inventario",
     subItems: [
-      { name: "Stock Actual", path: "/inventario/stock" },
       { name: "Productos por Vencer", path: "/inventario/vencimientos" },
       { name: "Historial de cambios", path: "/inventario/ajustes" },
     ],
@@ -53,17 +52,17 @@ const navItems: NavItem[] = [
     name: "Reportes",
     subItems: [
       { name: "Ventas", path: "/reportes/ventas" },
-      { name: "Productos Más Vendidos", path: "/reportes/productos" },
+     /* { name: "Productos Más Vendidos", path: "/reportes/productos" },*/
     ],
   },
-  {
+  /*{
     icon: <FaCog className="w-5 h-5" />,
     name: "Configuración",
     subItems: [
       { name: "Datos de la Farmacia", path: "/configuracion/empresa" },
       { name: "Sistema", path: "/configuracion/sistema" },
     ],
-  },
+  },*/
 ];
 
 // ------------------------------------------------------

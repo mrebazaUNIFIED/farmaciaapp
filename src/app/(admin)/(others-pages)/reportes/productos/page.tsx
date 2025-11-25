@@ -1,4 +1,5 @@
 
+import { ProductosMasVendidos } from "@/components/pages/ProductosMasVendidos";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export default function ProductosReportesPage() {
   return (
     <div>
-      <h1>Hello Page</h1>
+      <ProductosMasVendidos />
     </div>
   );
 }

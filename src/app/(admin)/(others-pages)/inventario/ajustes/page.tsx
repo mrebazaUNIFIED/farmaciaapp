@@ -1,3 +1,4 @@
+import { HistorialCambios } from "@/components/pages/HistorialCambios";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function InventarioAjustesPage() {
   return (
     <div>
-      <h1>Hello Page</h1>
+      <HistorialCambios />
     </div>
   );
 }

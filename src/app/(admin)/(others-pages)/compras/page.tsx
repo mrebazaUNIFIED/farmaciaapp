@@ -1,3 +1,4 @@
+import { Compras } from "@/components/pages/Compras";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
 export default function ComprasPage() {
   return (
     <div>
-      <h1>Hello Page</h1>
+      <Compras />
     </div>
   );
 }
+

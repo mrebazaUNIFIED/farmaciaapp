@@ -1,3 +1,4 @@
+import { ProductosVencer } from "@/components/pages/ProductoVencer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function InventarioVencimientoPage() {
   return (
     <div>
-      <h1>Hello Page</h1>
+      <ProductosVencer />
     </div>
   );
 }
