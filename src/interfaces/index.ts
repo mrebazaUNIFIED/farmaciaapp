@@ -120,7 +120,7 @@ export interface ClienteFormData {
 
 export interface VentaFormData {
   cliente_id?: string;
-  metodo_pago: 'Efectivo' | 'Tarjeta' | 'Transferencia';
+  metodo_pago: 'Efectivo' | 'Yape' | 'Transferencia';
   productos: {
     producto_id: string;
     cantidad: number;
@@ -181,7 +181,7 @@ export interface Alerta {
 
 // ============ ENUMS Y CONSTANTES ============
 
-export const METODOS_PAGO = ['Efectivo', 'Tarjeta', 'Transferencia'] as const;
+export const METODOS_PAGO = ['Efectivo', 'Yape', 'Transferencia'] as const;
 export type MetodoPago = typeof METODOS_PAGO[number];
 
 export const ESTADOS_VENTA = ['COMPLETADA', 'ANULADA'] as const;

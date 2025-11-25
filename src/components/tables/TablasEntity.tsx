@@ -396,7 +396,7 @@ export function VentasTable({ ventas }: VentasTableProps) {
           color={
             row.metodo_pago === "Efectivo"
               ? "success"
-              : row.metodo_pago === "Tarjeta"
+              : row.metodo_pago === "Yape"
               ? "primary"
               : "warning"
           }

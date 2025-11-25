@@ -110,7 +110,7 @@ export default function Ventas() {
         <Badge 
           color={
             row.metodo_pago === 'Efectivo' ? 'success' : 
-            row.metodo_pago === 'Tarjeta' ? 'primary' : 
+            row.metodo_pago === 'Yape' ? 'primary' : 
             'info'
           } 
           size="sm"

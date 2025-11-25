@@ -370,7 +370,7 @@ export const PuntoVenta = () => {
 										<Label>Método de Pago</Label>
 										<Select value={metodoPago} onValueChange={setMetodoPago}>
 											<SelectItem value="efectivo">Efectivo</SelectItem>
-											<SelectItem value="tarjeta">Tarjeta</SelectItem>
+											<SelectItem value="yape">Yape</SelectItem>
 											<SelectItem value="transferencia">Transferencia</SelectItem>
 										</Select>
 									</div>
