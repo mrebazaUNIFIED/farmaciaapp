@@ -35,7 +35,7 @@ const navItems: NavItem[] = [
   { icon: <MdDashboard className="w-5 h-5" />, name: "Dashboard", path: "/" },
   { icon: <FaThList className="w-5 h-5" />, name: "Categorías", path: "/categorias" },
   { icon: <FaUserNurse className="w-5 h-5" />, name: "Proveedores", path: "/proveedores" },
-  { icon: <FaPills className="w-5 h-5" />, name: "Productos", path: "/productos" },
+  { icon: <FaPills className="w-5 h-5" />, name: "Medicamentos", path: "/productos" },
   {
     icon: <MdInventory className="w-5 h-5" />,
     name: "Inventario",
